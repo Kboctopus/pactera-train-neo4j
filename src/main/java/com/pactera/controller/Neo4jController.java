@@ -3,14 +3,14 @@ package com.pactera.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.pactera.model.node.UserNode;
 import com.pactera.model.relationship.InviteRelation;
 import com.pactera.service.Neo4jService;
 
-@Controller
+@RestController
 @RequestMapping("/neo4j")
 public class Neo4jController {
 
