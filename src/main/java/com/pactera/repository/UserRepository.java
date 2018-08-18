@@ -15,6 +15,11 @@ public interface UserRepository extends GraphRepository<UserNode> {
     @Query("MATCH (n:User) RETURN n ")
     List<UserNode> getUserNodeList();
 
-    @Query("create (n:User{age:{age},name:{name}}) RETURN n ")
-    List<UserNode> addUserNodeList(@Param("name") String name, @Param("age")int age);
+    @Query("create (n:User{userId:{userId},userName:{userName},born:{born},sex:{sex},age:{age},phone:{phone}}) RETURN n ")
+    List<UserNode> addUserNodeList(@Param("userId") String userId,@Param("userName") String userName,
+    		@Param("born")String born,@Param("sex") String sex, @Param("age")int age, @Param("phone")String phone);
+    
+    @Query("MATCH (n:User) RETURN n where n.userId= {userId}")
+    UserNode getUserNode(@Param("userId") String userId);
+    
 }
