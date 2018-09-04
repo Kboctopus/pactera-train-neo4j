@@ -12,8 +12,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.10.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<version>1.5.12.RELEASE</version>
 	</parent>
 	<dependencyManagement>
 		<dependencies>
@@ -26,7 +25,16 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<!-- 使用Java8，嘗試使用新特新【stream和lambda】 -->
+	<properties>
+		<java.version>1.8</java.version>
+		<janino.version>3.0.8</janino.version>
+	</properties>
 	<dependencies>
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter</artifactId>
@@ -35,71 +43,32 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-zipkin</artifactId> 
-			</dependency> -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.47</version>
-		</dependency>
+		<!-- 添加热部署 devtools：监听文件变动 -->
+		<!-- 当Java文件改动时，Spring-boo会快速重新启动 -->
+		<!-- 最简单的测试，就是随便找一个文件Ctrl+S一下，就可以看到效果 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<!-- optional=true,依赖不会传递 -->
+			<!-- 本项目依赖devtools；若依赖本项目的其他项目想要使用devtools，需要重新引入 -->
+			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.6</version>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid-spring-boot-starter</artifactId>
-			<version>1.1.5</version>
-		</dependency>
+		<!-- Spring 单元测试 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- neo4j -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-			<!-- <version>2.5.3</version> -->
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-neo4j</artifactId>
-			<!-- <version>4.1.13</version> -->
-		</dependency>
-		<!-- <dependency> <groupId>org.neo4j</groupId> <artifactId>neo4j-ogm-embedded-driver</artifactId> 
-			<version>2.0.5</version> </dependency> <dependency> <groupId>org.neo4j</groupId> 
-			<artifactId>neo4j-ogm-bolt-driver</artifactId> <version>2.0.5</version> </dependency> -->
-		<dependency>
-			<groupId>com.voodoodyne.jackson.jsog</groupId>
-			<artifactId>jackson-jsog</artifactId>
-			<version>1.1</version>
-			<scope>compile</scope>
-		</dependency>
+		<!-- JUnit单元测试 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.neo4j.driver/neo4j-java-driver -->
+		<dependency>
+			<groupId>org.neo4j.driver</groupId>
+			<artifactId>neo4j-java-driver</artifactId>
+			<version>1.6.1</version>
 		</dependency>
 	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 </project>
