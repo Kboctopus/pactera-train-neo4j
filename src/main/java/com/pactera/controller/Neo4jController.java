@@ -1,13 +1,11 @@
 package com.pactera.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pactera.model.node.UserNode;
-import com.pactera.model.relationship.InviteRelation;
+import com.pactera.model.node.RNode;
+import com.pactera.model.relationship.REdge;
 import com.pactera.service.Neo4jService;
 
 @RestController
@@ -19,62 +17,45 @@ public class Neo4jController {
 	
 	/**
 	 * 添加userNode
-	 * @param userNode
+	 * @param RNode
 	 * @return
 	 */
-	@RequestMapping("/addUserNode")
-	public int addUserNode(UserNode userNode){
-		return neo4jService.addUser(userNode);
+	@RequestMapping("/addRNode")
+	public void addRNode(RNode rn){
+		neo4jService.addRNode(rn);
     }
 	
 	/**
-	 * 添加userNode
-	 * @param userNode
+	 * 创建关系
+	 * @param srcNode
+	 * @param tarNode
 	 * @return
 	 */
-	@RequestMapping("/addUserNodeList")
-	public int addUserList(List<UserNode> unList){
-		return neo4jService.addUserList(unList);
-	}
-	/**
-	 * 通过UserId获取UserNode
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping("/getUserNode")
-	public UserNode getUserNode(String userId){
-        return neo4jService.getUser(userId);
+	@RequestMapping("/addRelation")
+	public void addRelation(RNode srcNode,RNode tarNode){
+		neo4jService.addRelation(srcNode,tarNode);
     }
 	
 	/**
-	 * 获取UserNodeList
-	 * @return
-	 */
-	@RequestMapping("/getUserNodeList")
-	public List<UserNode> getUserNodeList(){
-        return neo4jService.getUserList();
+     * 查询节点
+     * @param rNode
+     * @return
+     */
+	@RequestMapping("/getRNode")
+	public RNode getRNode(RNode rNode){
+		return neo4jService.queryNode(rNode);
     }
 	
 	/**
-	 * 添加邀友关系
-	 * @param firstUserId
-	 * @param secondUserId
-	 * @return
-	 */
-	@RequestMapping("/addUserRelation")
-	public  List<InviteRelation> addUserRelation(String firstUserId, String secondUserId){
-		return neo4jService.addUserRelation(firstUserId,secondUserId);
-	}
-	
-	/**
-	 * 查询邀友关系
-	 * @param firstUserId
-	 * @param secondUserId
-	 * @return
-	 */
-	public List<InviteRelation> findUserRelationByEachId(String firstUserId, String secondUserId){
-		return neo4jService.findUserRelationByEachId(firstUserId,secondUserId);
-	}
+     * 查询节点关系
+     * @param srcNode
+     * @param tarNode
+     * @return
+     */
+	@RequestMapping("/getRelation")
+	public REdge getRelation(RNode srcNode,RNode tarNode){
+		return neo4jService.queryRelation(srcNode,tarNode);
+    }
 	
 	
 }
